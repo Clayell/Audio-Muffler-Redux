@@ -37,11 +37,11 @@ namespace AudioMuffler {
 	    void VesselChange(Vessel v)
 	    {
 			cacheManager.rebuildAllCaches(FindObjectsOfType(typeof(AudioSource)) as AudioSource[]);
-			writeDebug("Vessel change " + v.name);
+			writeDebug("Vessel change " + v?.name);
 	    }
 	    
 	    void VesselWasModified(Vessel vessel) {
-	    	if (vessel.isActiveVessel) {
+	    	if (vessel != null && vessel.isActiveVessel) {
 				cacheManager.setSchedule(config.minCacheUpdateInterval);
 	    	}
 	    }
