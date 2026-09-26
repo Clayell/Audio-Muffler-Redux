@@ -1,0 +1,15 @@
+identifier: AudioMufflerRedux
+name: AudioMufflerRedux (AMR)
+abstract: A simple mod that deadens the game's audio as your ship goes into vacuum.
+description: This mod makes sounds feel more realistic by muffling your audio as the air around your ship gets less and less dense. This is a continuation of the work of NovaSilisko and SerTheGreat.
+$vref: '#/ckan/ksp-avc'
+license: CC-BY-NC-SA-4.0
+author:
+  - Clayel
+  - Ser
+  - novasilisko
+resources:
+  homepage: PLACEHOLDER
+  repository: https://github.com/Clayell/Audio-Muffler-Redux
+  bugtracker: https://github.com/Clayell/Audio-Muffler-Redux/issues
+  spacedock: PLACEHOLDER

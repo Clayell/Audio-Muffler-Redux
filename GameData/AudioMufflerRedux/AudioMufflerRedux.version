@@ -1,0 +1,30 @@
+{
+	"NAME": "Audio-Muffler-Redux",
+	"URL": "https://raw.githubusercontent.com/Clayell/Audio-Muffler-Redux/master/GameData/Audio-Muffler-Redux/Audio-Muffler-Redux.version",
+	"DOWNLOAD": "https://github.com/Clayell/Audio-Muffler-Redux/releases",
+	"GITHUB": {
+		"USERNAME": "Clayell",
+		"REPOSITORY": "Audio-Muffler-Redux"
+	},
+	"VERSION": {
+		"MAJOR": 2,
+		"MINOR": 7,
+		"PATCH": 0,
+		"BUILD": 0
+	},
+	"KSP_VERSION": {
+		"MAJOR": 1,
+		"MINOR": 12,
+		"PATCH": 5
+	},
+	"KSP_VERSION_MIN": {
+		"MAJOR": 1,
+		"MINOR": 12,
+		"PATCH": 0
+	},
+	"KSP_VERSION_MAX": {
+		"MAJOR": 1,
+		"MINOR": 12,
+		"PATCH": 9
+	}
+}

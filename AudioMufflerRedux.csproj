@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{3C73640C-77D8-4DEE-BBBA-64102183BCC9}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <RootNamespace>AudioMufflerRedux</RootNamespace>
+    <AssemblyName>AudioMufflerRedux</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkProfile />
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <!-- Make sure KSPRoot is set as a system variable when building this, it should link to the root folder of your KSP install -->
+    <!-- (you can delete the lines that involve KSPSTOCK, and all of the Exec Command targets) -->
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Reference>
+      <Private>False</Private>
+    </Reference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="$(KSPRoot)\KSP_x64_Data\Managed\Assembly-CSharp*.dll" />
+    <Reference Include="$(KSPRoot)\KSP_x64_Data\Managed\UnityEngine*.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Source\AudioMixerFacade.cs" />
+    <Compile Include="Source\AudioMufflerConfig.cs" />
+    <Compile Include="Source\Muffler.cs" />
+    <Compile Include="Properties\AssemblyVersion.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AssemblyVersion.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Source\StockAudio.cs" />
+    <Compile Include="Source\VesselSoundsCache.cs" />
+    <Compile Include="Source\VesselGeometryCache.cs" />
+    <Compile Include="Source\DebugVisualizer.cs" />
+    <Compile Include="Source\VesselCacheManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".github\actions\spacedock-upload\action.yml" />
+    <None Include=".github\workflows\publish-to-spacedock.yml" />
+    <None Include="git-scripts\zip.ps1" />
+    <None Include="Properties\AssemblyVersion.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AssemblyVersion.cs</LastGenOutput>
+    </None>
+    <None Include="LICENSE.md" />
+    <None Include="README.md" />
+    <None Include="GameData\AudioMufflerRedux\AudioMufflerRedux.ckan" />
+    <None Include="GameData\AudioMufflerRedux\AudioMufflerRedux.version" />
+    <None Include="GameData\AudioMufflerRedux\README.md" />
+    <None Include="GameData\AudioMufflerRedux\PluginData\mixer.bundle" />
+    <None Include="GameData\AudioMufflerRedux\PluginData\muffler.cfg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GameData\AudioMufflerRedux\Plugins\AudioMufflerRedux.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <PostBuildEvent>
+			del /f /q "$(SolutionDir)\GameData\AudioMufflerRedux\Plugins\$(TargetFileName)" 2&gt;nul
+			del /f /q "$(SolutionDir)\GameData\AudioMufflerRedux\Plugins\$(TargetName).pdb" 2&gt;nul
+			xcopy /y /i "$(TargetPath)" "$(SolutionDir)\GameData\AudioMufflerRedux\Plugins\"
+			xcopy /y /i "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)\GameData\AudioMufflerRedux\Plugins\"
+
+			del /f /q "$(KSPRoot)\GameData\AudioMufflerRedux\Plugins\$(TargetFileName)" 2&gt;nul
+			del /f /q "$(KSPRoot)\GameData\AudioMufflerRedux\Plugins\$(TargetName).pdb" 2&gt;nul
+			xcopy /y /i "$(TargetPath)" "$(KSPRoot)\GameData\AudioMufflerRedux\Plugins\"
+			xcopy /y /i "$(TargetDir)$(TargetName).pdb" "$(KSPRoot)\GameData\AudioMufflerRedux\Plugins\"
+		</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PostBuildEvent>
+			del /f /q "$(SolutionDir)\GameData\AudioMufflerRedux\Plugins\$(TargetFileName)" 2&gt;nul
+			xcopy /y /i "$(TargetPath)" "$(SolutionDir)\GameData\AudioMufflerRedux\Plugins\"
+
+			del /f /q "$(KSPRoot)\GameData\AudioMufflerRedux\Plugins\$(TargetFileName)" 2&gt;nul
+			xcopy /y /i "$(TargetPath)" "$(KSPRoot)\GameData\AudioMufflerRedux\Plugins\"
+		</PostBuildEvent>
+  </PropertyGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="&quot;$(ProgramFiles)\Microsoft Visual Studio\2022\Community\Common7\IDE\TextTransform.exe&quot; &quot;$(ProjectDir)Properties\AssemblyVersion.tt&quot;" />
+  </Target>
+  <Target Name="ZipGameData" AfterTargets="Build" Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <Exec Command="powershell -ExecutionPolicy Bypass -File &quot;.git\zip.ps1&quot; -ProjectName &quot;$(MSBuildProjectName)&quot;" WorkingDirectory="$(ProjectDir)" />
+  </Target>
+</Project>
